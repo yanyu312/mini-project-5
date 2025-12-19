@@ -61,11 +61,11 @@ make clean
 ## Report Section
 
 ### 1. Division of Labor
-
-* 組員 A：撰寫 `signal_gen.c`、設計波形組成邏輯。
-* 組員 B：撰寫 `spectrogram.c` 與 C 語言的 FFT 實作。
-* 陳彥妤/411186038：撰寫 Python 的 `spectshow.py`，完成 waveform 與 spectrogram 視覺化。
-* 全體組員共同撰寫本報告與討論。
+| 組員 | 負責項目 | 比例估計 |
+|------|-----------|----------|
+* 組員 A | 撰寫 `signal_gen.c`、設計波形組成邏輯 | %
+* 組員 B | 撰寫 `spectrogram.c` 與 C 語言的 FFT 實作 | %
+* 陳彥妤 | Python 視覺化（spectshow.py）、PDF 輸出、資料夾整理、README 撰寫 、Makefile 撰寫| %
 
 ### 2. Comparison of Settings 1–4
 
