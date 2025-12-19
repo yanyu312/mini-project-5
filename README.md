@@ -54,22 +54,16 @@ make clean
 
 ## 備註
 
-若要快速執行：run_all.bat
-
-若你使用的是 Windows 系統，可直接執行以下批次檔來一鍵完成所有步驟：
+若要快速執行，並且你使用的是 Windows 系統，可直接執行以下批次檔來一鍵完成所有步驟：
 
 ./run_all.bat
 
-
 此腳本將自動完成以下動作：
-
 呼叫 bin/signal_gen.exe 產生 .wav 音訊檔案。
-
 依序以不同設定呼叫 bin/spectrogram.exe 產生 4 組 spectrogram .txt 檔。
-
 利用 spectshow.py 繪製 waveform 與 spectrogram，輸出為 4 份 PDF 檔案（out1.pdf～out4.pdf）。
-
 執行成功後，所有輸出結果會儲存在 out/ 資料夾中。
+
 ---
 
 ## Report Section
