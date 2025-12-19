@@ -54,8 +54,22 @@ make clean
 
 ## 備註
 
-若 spectrogram 為自行撰寫的 C 程式，請確保其能輸出與 `spectrogram.py` 相容的純文字檔案格式。
+若要快速執行：run_all.bat
 
+若你使用的是 Windows 系統，可直接執行以下批次檔來一鍵完成所有步驟：
+
+./run_all.bat
+
+
+此腳本將自動完成以下動作：
+
+呼叫 bin/signal_gen.exe 產生 .wav 音訊檔案。
+
+依序以不同設定呼叫 bin/spectrogram.exe 產生 4 組 spectrogram .txt 檔。
+
+利用 spectshow.py 繪製 waveform 與 spectrogram，輸出為 4 份 PDF 檔案（out1.pdf～out4.pdf）。
+
+執行成功後，所有輸出結果會儲存在 out/ 資料夾中。
 ---
 
 ## Report Section
@@ -65,7 +79,7 @@ make clean
 |------|-----------|----------|
 * 組員 A | 撰寫 `signal_gen.c`、設計波形組成邏輯 | %
 * 組員 B | 撰寫 `spectrogram.c` 與 C 語言的 FFT 實作 | %
-* 陳彥妤 | Python 視覺化（spectshow.py）、PDF 輸出、資料夾整理、README 撰寫 、Makefile 撰寫| %
+* 陳彥妤 | Python 視覺化（spectshow.py）、PDF 輸出、資料夾整理、README 撰寫 、Makefile 撰寫、run_all.bat撰寫| %
 
 ### 2. Comparison of Settings 1–4
 
