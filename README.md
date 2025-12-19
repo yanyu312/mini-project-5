@@ -1,11 +1,11 @@
 # Multimedia Mini Project 5
 
-本專案包含使用 C 語言產生波形訊號（signal_gen.c），以及使用 Python 畫出該聲音的 waveform 與 spectrogram（spectrogram.py）。
+本專案包含使用 C 語言產生波形訊號（signal_gen.c），以及使用 Python 畫出該聲音的 waveform 與 spectrogram（spectshow.py）。
 
 ## 檔案內容
 
 * `signal_gen.c`: C 語言編寫，用來產生包含四種波形（sine, sawtooth, square, triangle）的聲音信號，並儲存為 WAV 檔案。
-* `spectrogram.py`: 使用 Matplotlib 顯示 `.wav` 檔案的 waveform 與搭配文字格式的 spectrogram（ASCII），並輸出成 PDF。
+* `spectshow.py`: 使用 Matplotlib 顯示 `.wav` 檔案的 waveform 與搭配文字格式的 spectrogram（ASCII），並輸出成 PDF。
 
 ## 使用方式
 
@@ -31,7 +31,7 @@ gcc signal_gen.c -o signal_gen.exe -lm
 ### 使用 Python 顯示 Waveform 與 Spectrogram 並輸出 PDF
 
 ```bash
-python3 spectrogram.py s-8kHz.wav s-8kHz.Set1.txt out.pdf
+python3 spectshow.py s-8kHz.wav s-8kHz.Set1.txt out.pdf
 ```
 
 ## 相依套件
