@@ -71,9 +71,9 @@ make clean
 ### 1. Division of Labor
 | 組員 | 負責項目 | 比例估計 |
 |------|-----------|----------|
-* 組員 A | 撰寫 `signal_gen.c`、設計波形組成邏輯 | %
-* 組員 B | 撰寫 `spectrogram.c` 與 C 語言的 FFT 實作 | %
-* 陳彥妤 | Python 視覺化`spectshow.py`與PDF 輸出、資料夾整理、README 撰寫 、Makefile 撰寫、run_all.bat撰寫| %
+* 李後諺 | 撰寫 `signal_gen.c`、設計波形組成邏輯、workflow撰寫| 34%
+* 楊昇儒 | 撰寫 `spectrogram.c` 與 C 語言的 FFT 實作、PDF輸出 | 33%
+* 陳彥妤 | Python 視覺化`spectshow.py`與資料夾整理、README 撰寫 、Makefile 撰寫、run_all.bat撰寫| 33%
 
 ### 2. Comparison of Settings 1–4
 
