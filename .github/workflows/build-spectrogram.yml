@@ -79,7 +79,7 @@ jobs:
         python3 spectshow.py aeueo-16kHz.wav aeueo-16k.Set4.txt aeueo-16k.Set4.pdf
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: spectrogram-results
         path: |
