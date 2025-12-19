@@ -64,7 +64,7 @@ make clean
 
 * 組員 A：撰寫 `signal_gen.c`、設計波形組成邏輯。
 * 組員 B：撰寫 `spectrogram.c` 與 C 語言的 FFT 實作。
-* 陳彥妤/411186038：撰寫 Python 的 `spectrogram.py`，完成 waveform 與 spectrogram 視覺化。
+* 陳彥妤/411186038：撰寫 Python 的 `spectshow.py`，完成 waveform 與 spectrogram 視覺化。
 * 全體組員共同撰寫本報告與討論。
 
 ### 2. Comparison of Settings 1–4
