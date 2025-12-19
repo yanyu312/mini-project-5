@@ -54,30 +54,61 @@ int main(int argc,char *argv[]){
     char *spec_out=argv[6];
 
     FILE *fp=fopen(wav_in,"rb");
+    if(!fp){
+        fprintf(stderr,"Error: cannot open %s\n", wav_in);
+        return -1;
+    }
     fseek(fp,44,SEEK_SET); // skip header
-    int16_t *buf=malloc(1000000*sizeof(int16_t));
-    int samples=fread(buf,2,1000000,fp);
+    int16_t *buf=malloc(2000000*sizeof(int16_t)); // buffer for samples
+    int samples=fread(buf,sizeof(int16_t),2000000,fp);
     fclose(fp);
 
-    int fs=16000; // 假設 16kHz
+    // 根據檔名判斷取樣率
+    int fs = (strstr(wav_in,"8kHz")) ? 8000 : 16000;
+
     int w_size=fs*w_size_ms/1000;
     int dft_size=fs*dft_size_ms/1000;
     int hop=fs*f_itv_ms/1000;
 
+    if(dft_size > samples){
+        fprintf(stderr,"Error: dft_size too large\n");
+        free(buf);
+        return -1;
+    }
+
     FILE *fo=fopen(spec_out,"w");
-    for(int start=0;start+w_size<=samples;start+=hop){
-        double xr[4096]={0}, xi[4096]={0};
+    if(!fo){
+        fprintf(stderr,"Error: cannot open %s\n", spec_out);
+        free(buf);
+        return -1;
+    }
+
+    for(int start=0; start+w_size<=samples; start+=hop){
+        double *xr = calloc(dft_size, sizeof(double));
+        double *xi = calloc(dft_size, sizeof(double));
+        if(!xr || !xi){
+            fprintf(stderr,"Memory allocation failed\n");
+            free(buf);
+            return -1;
+        }
+
         for(int n=0;n<w_size;n++){
             double win=(strcmp(w_type,"hamming")==0)?hamming(n,w_size):rectangular(n,w_size);
             xr[n]=buf[start+n]*win;
         }
+
         fft(xr,xi,dft_size);
+
         for(int k=0;k<dft_size/2;k++){
             double mag=sqrt(xr[k]*xr[k]+xi[k]*xi[k]);
             fprintf(fo,"%f ",mag);
         }
         fprintf(fo,"\n");
+
+        free(xr);
+        free(xi);
     }
+
     fclose(fo);
     free(buf);
     return 0;

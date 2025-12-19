@@ -17,8 +17,8 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y gcc python3 python3-pip
-        pip3 install numpy matplotlib
+        sudo apt-get install -y gcc python3 python3-pip sox
+        python3 -m pip install numpy matplotlib
 
     - name: Compile C programs
       run: |
@@ -29,54 +29,26 @@ jobs:
       run: |
         ./signal_gen 8000 s-8kHz.wav
         ./signal_gen 16000 s-16kHz.wav
+        # 確保 aeueo-8kHz.wav 和 aeueo-16kHz.wav 已經在 repo 中
 
     - name: Generate spectrogram ASCII files
       run: |
-        # s-8kHz.wav
-        ./spectrogram 32 rectangular 32 10 s-8kHz.wav s-8k.Set1.txt
-        ./spectrogram 32 hamming     32 10 s-8kHz.wav s-8k.Set2.txt
-        ./spectrogram 30 rectangular 32 10 s-8kHz.wav s-8k.Set3.txt
-        ./spectrogram 30 hamming     32 10 s-8kHz.wav s-8k.Set4.txt
-
-        # s-16kHz.wav
-        ./spectrogram 32 rectangular 32 10 s-16kHz.wav s-16k.Set1.txt
-        ./spectrogram 32 hamming     32 10 s-16kHz.wav s-16k.Set2.txt
-        ./spectrogram 30 rectangular 32 10 s-16kHz.wav s-16k.Set3.txt
-        ./spectrogram 30 hamming     32 10 s-16kHz.wav s-16k.Set4.txt
-
-        # aeueo-8kHz.wav
-        ./spectrogram 32 rectangular 32 10 aeueo-8kHz.wav aeueo-8k.Set1.txt
-        ./spectrogram 32 hamming     32 10 aeueo-8kHz.wav aeueo-8k.Set2.txt
-        ./spectrogram 30 rectangular 32 10 aeueo-8kHz.wav aeueo-8k.Set3.txt
-        ./spectrogram 30 hamming     32 10 aeueo-8kHz.wav aeueo-8k.Set4.txt
-
-        # aeueo-16kHz.wav
-        ./spectrogram 32 rectangular 32 10 aeueo-16kHz.wav aeueo-16k.Set1.txt
-        ./spectrogram 32 hamming     32 10 aeueo-16kHz.wav aeueo-16k.Set2.txt
-        ./spectrogram 30 rectangular 32 10 aeueo-16kHz.wav aeueo-16k.Set3.txt
-        ./spectrogram 30 hamming     32 10 aeueo-16kHz.wav aeueo-16k.Set4.txt
+        for wav in s-8kHz.wav s-16kHz.wav aeueo-8kHz.wav aeueo-16kHz.wav; do
+          base=$(echo $wav | cut -d'.' -f1)
+          ./spectrogram 32 rectangular 32 10 $wav ${base}.Set1.txt
+          ./spectrogram 32 hamming     32 10 $wav ${base}.Set2.txt
+          ./spectrogram 30 rectangular 32 10 $wav ${base}.Set3.txt
+          ./spectrogram 30 hamming     32 10 $wav ${base}.Set4.txt
+        done
 
     - name: Generate spectrogram PDFs
       run: |
-        python3 spectshow.py s-8kHz.wav s-8k.Set1.txt s-8k.Set1.pdf
-        python3 spectshow.py s-8kHz.wav s-8k.Set2.txt s-8k.Set2.pdf
-        python3 spectshow.py s-8kHz.wav s-8k.Set3.txt s-8k.Set3.pdf
-        python3 spectshow.py s-8kHz.wav s-8k.Set4.txt s-8k.Set4.pdf
-
-        python3 spectshow.py s-16kHz.wav s-16k.Set1.txt s-16k.Set1.pdf
-        python3 spectshow.py s-16kHz.wav s-16k.Set2.txt s-16k.Set2.pdf
-        python3 spectshow.py s-16kHz.wav s-16k.Set3.txt s-16k.Set3.pdf
-        python3 spectshow.py s-16kHz.wav s-16k.Set4.txt s-16k.Set4.pdf
-
-        python3 spectshow.py aeueo-8kHz.wav aeueo-8k.Set1.txt aeueo-8k.Set1.pdf
-        python3 spectshow.py aeueo-8kHz.wav aeueo-8k.Set2.txt aeueo-8k.Set2.pdf
-        python3 spectshow.py aeueo-8kHz.wav aeueo-8k.Set3.txt aeueo-8k.Set3.pdf
-        python3 spectshow.py aeueo-8kHz.wav aeueo-8k.Set4.txt aeueo-8k.Set4.pdf
-
-        python3 spectshow.py aeueo-16kHz.wav aeueo-16k.Set1.txt aeueo-16k.Set1.pdf
-        python3 spectshow.py aeueo-16kHz.wav aeueo-16k.Set2.txt aeueo-16k.Set2.pdf
-        python3 spectshow.py aeueo-16kHz.wav aeueo-16k.Set3.txt aeueo-16k.Set3.pdf
-        python3 spectshow.py aeueo-16kHz.wav aeueo-16k.Set4.txt aeueo-16k.Set4.pdf
+        for wav in s-8kHz.wav s-16kHz.wav aeueo-8kHz.wav aeueo-16kHz.wav; do
+          base=$(echo $wav | cut -d'.' -f1)
+          for i in 1 2 3 4; do
+            python3 spectshow.py $wav ${base}.Set${i}.txt ${base}.Set${i}.pdf
+          done
+        done
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
